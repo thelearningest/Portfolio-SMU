@@ -19,6 +19,12 @@ export default function App() {
   });
   const [isLoading, setIsLoading] = useState(true);
 
+  const completeLoading = () => {
+    window.scrollTo(0, 0);
+    setIsLoading(false);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
+  };
+
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
@@ -29,10 +35,27 @@ export default function App() {
     }
   }, [isDark]);
 
+  useEffect(() => {
+    if (!isLoading) return;
+
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+
+    window.scrollTo(0, 0);
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+      window.scrollTo(0, 0);
+    };
+  }, [isLoading]);
+
   return (
     <>
       <AnimatePresence mode="wait">
-        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
+        {isLoading && <LoadingScreen onComplete={completeLoading} />}
       </AnimatePresence>
 
       <div 
