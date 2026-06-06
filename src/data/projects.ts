@@ -90,7 +90,7 @@ export const projects: Project[] = [
     year: '2026',
     techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Codex'],
     liveUrl: 'https://github.com/longle325/LitMatch',
-    image: '/assets/projects/Litmatch.png',
+    image: '/assets/projects/Litmatch3.png',
     gallery: [
       '/assets/projects/Litmatch1.png',
       '/assets/projects/Litmatch2.png',
