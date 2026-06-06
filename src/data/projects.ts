@@ -21,6 +21,9 @@ export interface Project {
   };
 }
 
+const litmatchPlaceholder =
+  "data:image/svg+xml,%3Csvg width='1200' height='900' viewBox='0 0 1200 900' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1200' height='900' fill='%23100B12'/%3E%3Crect x='70' y='70' width='1060' height='760' rx='44' fill='%231A101D' stroke='%23F6D365' stroke-opacity='.18'/%3E%3Ccircle cx='930' cy='180' r='210' fill='%23F97316' fill-opacity='.14'/%3E%3Ccircle cx='250' cy='690' r='260' fill='%23E11D48' fill-opacity='.16'/%3E%3Crect x='380' y='170' width='360' height='520' rx='32' fill='%23FFF7ED' transform='rotate(-8 380 170)'/%3E%3Crect x='455' y='145' width='360' height='520' rx='32' fill='%23FDE68A' transform='rotate(8 455 145)'/%3E%3Crect x='450' y='190' width='300' height='430' rx='28' fill='%23100B12'/%3E%3Cpath d='M510 485C576 425 624 425 690 485' stroke='%23FDE68A' stroke-width='20' stroke-linecap='round'/%3E%3Cpath d='M520 300C520 277 539 258 562 258H638C661 258 680 277 680 300V405C680 428 661 447 638 447H562C539 447 520 428 520 405V300Z' stroke='%23FFF7ED' stroke-width='18'/%3E%3Cpath d='M594 339H606' stroke='%23FFF7ED' stroke-width='18' stroke-linecap='round'/%3E%3Cpath d='M348 298L314 264L280 298C247 331 302 393 314 404C326 393 381 331 348 298Z' fill='%23FB7185'/%3E%3Cpath d='M903 576L864 537L825 576C787 614 851 686 864 699C877 686 941 614 903 576Z' fill='%23FDE68A'/%3E%3Ctext x='600' y='770' fill='%23FFF7ED' font-family='Arial, sans-serif' font-size='64' font-weight='700' text-anchor='middle'%3ELitmatch%3C/text%3E%3Ctext x='600' y='816' fill='%23FDE68A' font-family='Arial, sans-serif' font-size='24' font-weight='700' letter-spacing='8' text-anchor='middle'%3EPLACEHOLDER IMAGE%3C/text%3E%3C/svg%3E";
+
 export const projects: Project[] = [
   {
     id: 1,
@@ -73,6 +76,36 @@ export const projects: Project[] = [
       fit: 'cover',
       position: '80% 70%',
       scale: 1
+    }
+  },
+  {
+    id: 8,
+    title: 'Litmatch',
+    category: 'Hackathon Winner',
+    type: 'Coding Project',
+    description: 'Tinder for book characters, awarded third prize at the first Codex Community Hackathon in Vietnam.',
+    fullDescription: 'a gamified Vietnamese literature learning app that lets students discover literary characters through swipe cards, chat with them using source grounded AI, complete character challenges, and compete on a leaderboard. I was the one who came up with the idea, designed the product, and built the frontend of the app.',
+    challenge: 'The challenge was to turn a familiar swipe-based interaction into something literary, funny, and immediately understandable. We needed the product to feel like a real app while still keeping the concept focused: helping people discover characters through personality, taste, and narrative tension instead of ordinary dating profiles.',
+    role: 'Product Designer & Frontend Developer',
+    year: '2026',
+    techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Codex'],
+    liveUrl: 'https://github.com/longle325/LitMatch',
+    image: '/assets/projects/Litmatch3.png',
+    gallery: [
+      '/assets/projects/Litmatch1.png',
+      '/assets/projects/Litmatch2.png',
+      '/assets/projects/Litmatch3.png',
+      '/assets/projects/Litmatch4.png',
+      '/assets/projects/Litmatch5.png',
+      '/assets/projects/Litmatch6.JPG',
+      '/assets/projects/Litmatch7.png',
+
+    ],
+    className: 'md:col-span-2 md:row-span-2',
+    imageConfig: {
+      fit: 'cover',
+      position: 'center',
+      overlayStrength: 'normal',
     }
   },
   {
