@@ -136,8 +136,8 @@ export default function About() {
 
   return (
     <section id="about" className="relative bg-background py-18 md:py-32">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-[240px_minmax(0,1fr)] md:gap-16">
-        <aside className="h-fit md:sticky md:top-28">
+      <div className="mx-auto grid max-w-7xl min-w-0 gap-10 px-4 sm:px-6 md:grid-cols-[240px_minmax(0,1fr)] md:gap-16">
+        <aside className="min-w-0 h-fit md:sticky md:top-28">
           <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-muted-foreground">The Narrative</p>
           <h2 className="mt-3 font-display text-[2rem] font-semibold leading-none text-foreground md:mt-4 md:text-4xl">
             <TypewriterHook text="Hello, I'm Triet." />
@@ -188,7 +188,7 @@ export default function About() {
           </nav>
         </aside>
 
-        <div className="space-y-6 md:space-y-10">
+        <div className="min-w-0 space-y-6 md:space-y-10">
           {phases.map((phase) => (
             <React.Fragment key={phase.id}>
               <PhasePanel
@@ -227,13 +227,13 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
       id={phase.id}
       ref={ref}
       style={{ opacity, y }}
-      className={`relative overflow-hidden border ${isLight
+      className={`relative min-w-0 overflow-hidden border ${isLight
         ? 'border-black/10 bg-[#f5f1ea] text-black'
         : 'border-white/10 bg-[#101010] text-white'
         }`}
     >
       <div className={`absolute inset-0 ${isLight ? 'bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.85),transparent_60%)]' : 'bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_55%)]'}`} />
-      <div className={`relative px-4 py-6 sm:px-5 md:px-10 md:py-10 ${phase.hasSpline ? 'pb-5 md:pb-8' : 'pb-6 md:pb-10'}`}>
+      <div className={`relative min-w-0 px-4 py-6 sm:px-5 md:px-10 md:py-10 ${phase.hasSpline ? 'pb-5 md:pb-8' : 'pb-6 md:pb-10'}`}>
         <div className="flex items-start justify-between gap-6">
           <span
             className={`rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em] ${isLight
@@ -343,7 +343,7 @@ const EvidenceMarquee = ({ tiles, theme }: { tiles: EvidenceTile[]; theme: Phase
   return (
     <div
       ref={scrollBindings.containerRef}
-      className="media-scroll-row mt-5 overflow-x-auto pb-4 md:mt-6"
+      className="media-scroll-row mt-5 min-w-0 overflow-x-auto pb-4 md:mt-6"
       style={{
         maskImage: 'linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent)',
         WebkitMaskImage: 'linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent)'
@@ -355,7 +355,7 @@ const EvidenceMarquee = ({ tiles, theme }: { tiles: EvidenceTile[]; theme: Phase
       onWheel={scrollBindings.handleManualIntent}
       onScroll={scrollBindings.handleScroll}
     >
-      <div className="w-max min-w-full">
+      <div className="min-w-full w-max">
         <div ref={scrollBindings.trackRef} className="flex w-max flex-nowrap gap-2.5 pr-3 pt-1 pb-1 md:gap-3">
         {marqueeTiles.map((tile, idx) => (
           <React.Fragment key={`${tile.title}-${idx}`}>
@@ -422,7 +422,7 @@ const ProjectMarquee = ({ projects }: { projects: ProjectCard[] }) => {
   return (
     <div
       ref={scrollBindings.containerRef}
-      className="media-scroll-row mt-5 overflow-x-auto pb-4 md:mt-6"
+      className="media-scroll-row mt-5 min-w-0 overflow-x-auto pb-4 md:mt-6"
       style={{
         maskImage: 'linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent)',
         WebkitMaskImage: 'linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent)'
@@ -434,7 +434,7 @@ const ProjectMarquee = ({ projects }: { projects: ProjectCard[] }) => {
       onWheel={scrollBindings.handleManualIntent}
       onScroll={scrollBindings.handleScroll}
     >
-      <div className="w-max min-w-full">
+      <div className="min-w-full w-max">
         <div ref={scrollBindings.trackRef} className="flex w-max flex-nowrap gap-2.5 pr-3 pt-1 pb-1 md:gap-3">
         {marqueeProjects.map((project, idx) => (
           <React.Fragment key={`${project.title}-${idx}`}>
@@ -682,15 +682,17 @@ const TypewriterHook = ({ text }: { text: string }) => {
   }, [isInView, text]);
 
   return (
-    <span ref={ref} className="relative inline-block">
-      {displayText}
-      <span className="invisible absolute left-0 top-0 select-none">{text}</span>
-      <motion.span
-        animate={showCursor ? { opacity: [0, 1, 0] } : { opacity: 0 }}
-        transition={{ repeat: showCursor ? Infinity : 0, duration: 0.8, ease: 'linear' }}
-        className="ml-2 inline-block h-[0.9em] w-[4px] translate-y-1 bg-primary"
-        style={{ display: showCursor ? 'inline-block' : 'none' }}
-      />
+    <span ref={ref} className="relative inline-grid min-w-0">
+      <span className="col-start-1 row-start-1 whitespace-nowrap">
+        {displayText}
+        <motion.span
+          animate={showCursor ? { opacity: [0, 1, 0] } : { opacity: 0 }}
+          transition={{ repeat: showCursor ? Infinity : 0, duration: 0.8, ease: 'linear' }}
+          className="ml-2 inline-block h-[0.9em] w-[4px] translate-y-1 bg-primary"
+          style={{ display: showCursor ? 'inline-block' : 'none' }}
+        />
+      </span>
+      <span aria-hidden="true" className="invisible col-start-1 row-start-1 select-none whitespace-nowrap">{text}</span>
     </span>
   );
 };
