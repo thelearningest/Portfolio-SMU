@@ -34,11 +34,21 @@ export default function Hero() {
         </div>
         <h1 className="mb-4 font-serif text-[3rem] font-medium leading-[0.95] md:mb-6 md:text-6xl lg:text-7xl">
           Educator & <br />
-          <span className="italic text-muted-foreground">Story-teller.</span>
+          <span className="italic text-muted-foreground">Storyteller.</span>
         </h1>
         <p className="max-w-[18rem] text-[0.95rem] leading-6 text-muted-foreground md:max-w-md md:text-lg">
-          I had an education and marketing background. 10M+ views on social media and two-times TEDx speaker.
+          10M+ views, two TEDx talks, and years spent making difficult ideas easier to understand.
         </p>
+      </motion.div>
+
+      {/* Center element bridging them */}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.8, type: 'spring' }}
+        className="relative z-20 -my-8 flex h-16 w-16 shrink-0 self-center items-center justify-center rounded-full border border-border bg-background shadow-xl md:absolute md:top-1/2 md:left-1/2 md:m-0 md:h-24 md:w-24 md:-translate-x-1/2 md:-translate-y-1/2"
+      >
+        <span className="font-display text-base font-bold md:text-xl">&amp;</span>
       </motion.div>
 
       {/* Right: Technical / Coding */}
@@ -49,26 +59,12 @@ export default function Hero() {
         className="flex-1 relative z-10 flex min-h-[36vh] flex-col justify-start items-start px-6 pb-12 pt-10 text-left md:min-h-0 md:justify-center md:p-16 lg:p-24 transition-colors hover:bg-background/10"
       >
         <h1 className="mb-4 font-display text-[3.1rem] font-bold leading-[0.95] tracking-tighter md:mb-6 md:text-6xl lg:text-7xl">
-          Digital <br />
           <span className="text-primary/70">Builder_</span>
         </h1>
         <p className="max-w-[18rem] text-[11px] leading-5 text-muted-foreground font-mono md:max-w-md md:text-sm">
-          &gt; Now, I'm transitioning into a builder, still with a focus on Education. <br />
-          &gt; Utilizing my marketing mindset and educational knowledge to create meaningful digital experiences.
+          &gt; I make stuff that helps people learn better—using AI, product thinking, and code.
         </p>
       </motion.div>
-
-      {/* Center element bridging them */}
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.8, type: 'spring' }}
-        className="absolute top-1/2 left-1/2 z-20 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background border border-border shadow-xl md:h-24 md:w-24"
-      >
-        <span className="font-display text-base font-bold md:text-xl">&amp;</span>
-      </motion.div>
-
-
     </section>
   );
 }

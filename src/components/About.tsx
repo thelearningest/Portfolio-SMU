@@ -36,11 +36,11 @@ type Phase = {
 const phases: Phase[] = [
   {
     id: '01',
-    navTitle: 'Content & Education',
+    navTitle: 'Teaching at Scale',
     kicker: 'PHASE /01',
     theme: 'dark',
     opening: [
-      'I thought I could change how\nmillions of Vietnamese learn\nthrough educational content.',
+      'I learned how to\nteach at scale.',
       'I reached millions. But I could not respond to\nconfusion or meet learners where they were.',
     ],
     evidenceTitle: 'Visual Evidence',
@@ -56,11 +56,11 @@ const phases: Phase[] = [
   },
   {
     id: '02',
-    navTitle: 'AI & Systems',
+    navTitle: 'Building with AI',
     kicker: 'PHASE /02',
     theme: 'accent',
     opening: [
-      'So I turned to AI\nand software.',
+      'I learned how to\nbuild with AI.',
       'Personalization at scale is\nnot just a content problem.\nIt is a systems problem.',
     ],
     evidenceTitle: 'Signals of the Shift (see the projects section for more detail)',
@@ -83,12 +83,12 @@ const phases: Phase[] = [
   },
   {
     id: '03',
-    navTitle: 'Adaptive Learning Systems',
+    navTitle: 'Combining Both',
     kicker: 'PHASE /03',
     theme: 'light',
     opening: [
-      'Building adaptive learning systems.\nBuilding scalable systems for millions of users.',
-      'SMU MITB (AI Track) is where I learn to make it real.',
+      'Now I am\ncombining both.',
+      'I make stuff that helps people learn better—tools that make difficult ideas clearer, guidance more personal, and learning more enjoyable.',
     ],
     hasSpline: true,
     closing: '',
@@ -138,7 +138,7 @@ export default function About() {
     <section id="about" className="relative bg-background py-18 md:py-32">
       <div className="mx-auto grid max-w-7xl min-w-0 gap-10 px-4 sm:px-6 md:grid-cols-[240px_minmax(0,1fr)] md:gap-16">
         <aside className="min-w-0 h-fit md:sticky md:top-28">
-          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-muted-foreground">The Narrative</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-muted-foreground">My Story</p>
           <h2 className="mt-3 font-display text-[2rem] font-semibold leading-none text-foreground md:mt-4 md:text-4xl">
             <TypewriterHook text="Hello, I'm Triet." />
           </h2>
@@ -149,8 +149,8 @@ export default function About() {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="mt-4 max-w-[18rem] text-[0.95rem] leading-6 text-muted-foreground md:mt-5 md:max-w-[15rem] md:text-sm"
           >
-            An <span className="italic text-foreground">educator, marketer & builder</span> aspiring to
-            attend SMU&apos;s MITB AI track. Below is the story of how I got here.
+            An <span className="italic text-foreground">educator, storyteller & builder.</span> This is
+            how I learned to teach at scale, build with AI, and combine both.
           </motion.p>
 
           <nav className="mt-8 -mx-1 flex gap-2 overflow-x-auto px-1 pb-2 md:mx-0 md:block md:space-y-5 md:overflow-visible md:border-l md:border-border/80 md:px-0 md:pb-0 md:pl-4" aria-label="About phases">
@@ -300,11 +300,14 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(163,230,53,0.15),transparent_50%)]" />
                   <div className="relative z-10 max-w-4xl">
                     <span className="inline-block rounded-full bg-lime-400/10 border border-lime-400/20 px-3 py-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-lime-400 mb-5">
-                      The Destination
+                      What I&apos;m Building Toward
                     </span>
                     <h4 className="font-display text-[1.95rem] sm:text-4xl lg:text-[3.25rem] font-medium leading-[1.1] tracking-tight text-white">
-                      SMU MITB <span className="text-white/40 font-light block sm:inline">(AI Track)</span><br className="hidden sm:block" /> is where I learn to make it <span className="text-lime-400 italic">real.</span>
+                      I make stuff that helps people <span className="text-lime-400 italic">learn better.</span>
                     </h4>
+                    <p className="mt-5 max-w-3xl text-[15px] leading-7 text-white/65 md:text-lg">
+                      Tools that make difficult ideas clearer, guidance more personal, and learning more enjoyable.
+                    </p>
                   </div>
                 </motion.div>
 

@@ -2,14 +2,14 @@
 
 # Minh Triet Portfolio
 
-This repository contains the source code for `https://portfolio-smu-minhtriet.vercel.app/`, a narrative portfolio site that presents my transition from educator and marketer to (aspiring) AI-focused digital builder. I use this to apply for a master program at Singapore Management University
+This repository contains the source code for `https://trietportfolio.com/`, a narrative portfolio about my work across education, storytelling, AI, and product building. It is made for hiring managers and technical collaborators who want to see how I think, build, and communicate.
 
 You can fork this portfolio and make changes on your own, but remember to give me proper credit by linking back to the **original portfolio**
 
 
 ## What The Portfolio Covers
 
-- A split-screen hero that introduces two sides of the profile: educator/story-teller and digital builder
+- A split-screen hero that connects two sides of the profile: educator/storyteller and builder
 - A narrative-driven About section that explains the shift from large-scale educational content toward building adaptive learning systems
 - A Selected Works section with expandable project case studies
 - A Contact section with direct links for outreach
@@ -56,5 +56,4 @@ Additional scripts:
 
 ## Deployment
 
-The repository is configured for deployment to the custom domain `https://portfolio-smu-minhtriet.vercel.app/`.
-
+The repository is configured for deployment to the custom domain `https://trietportfolio.com/`.

@@ -25,7 +25,7 @@ export default function Contact() {
               <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/60" /> Let's Connect
             </h2>
             <h3 className="max-w-[20rem] font-display text-[2rem] font-semibold leading-[1.08] tracking-tight md:max-w-none md:text-5xl lg:text-6xl">
-              If you are looking for a <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">creative</span> and <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">ambitious</span> candidate, I think we need to talk.
+              I want to help build the next thing that makes learning better—either in a <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">product role</span> or as a <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">Founder&apos;s Associate</span> at an edtech company.
             </h3>
           </motion.div>
         </div>
