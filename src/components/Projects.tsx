@@ -5,6 +5,26 @@ import ProjectShowcase from './ProjectShowcase';
 
 import { projects } from '../data/projects';
 
+const featuredProjectIds = [8, 4, 3];
+const secondaryProjectIds = [1, 2, 6, 7, 5];
+
+const orderProjects = (ids: number[]) =>
+  projects
+    .filter((project) => ids.includes(project.id))
+    .sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+
+const featuredProjects = orderProjects(featuredProjectIds);
+const secondaryProjects = orderProjects(secondaryProjectIds);
+
+const imageVariant = (src: string, format: 'avif' | 'webp') =>
+  src.replace(/\.[^/.]+$/, `.${format}`);
+
+const featuredLayoutById: Record<number, string> = {
+  8: 'md:col-span-2 md:row-span-2',
+  4: 'md:col-span-1 md:row-span-2',
+  3: 'md:col-span-3 md:row-span-1',
+};
+
 export default function Projects() {
   const [activeProject, setActiveProject] = useState<any>(null);
 
@@ -12,14 +32,33 @@ export default function Projects() {
     <section id="projects" className="py-24 md:py-32 bg-secondary/30 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-16 md:mb-24">
-          <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-4">Proof of Capability</h2>
-          <h3 className="font-display text-4xl md:text-5xl font-bold">Selected Works.</h3>
+          <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-4">Selected work</h2>
+          <h3 className="font-display text-4xl md:text-5xl font-bold">Things I’ve built for learning.</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-[300px] grid-flow-row-dense">
-          {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} onClick={() => setActiveProject(project)} />
+          {featuredProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              layoutClassName={featuredLayoutById[project.id]}
+              onClick={() => setActiveProject(project)}
+            />
           ))}
+        </div>
+
+        <div className="mt-24 md:mt-32">
+          <h3 className="mb-10 font-display text-3xl font-bold md:mb-14 md:text-4xl">More things I’ve made.</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-[300px]">
+            {secondaryProjects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                layoutClassName="md:col-span-1 md:row-span-1"
+                onClick={() => setActiveProject(project)}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
@@ -87,29 +126,39 @@ export default function Projects() {
   );
 }
 
-const ProjectCard: React.FC<{ project: any; onClick: () => void }> = ({ project, onClick }) => {
+const ProjectCard: React.FC<{ project: any; layoutClassName?: string; onClick: () => void }> = ({
+  project,
+  layoutClassName,
+  onClick,
+}) => {
   return (
     <motion.div
       layoutId={`project-card-${project.id}`}
       whileHover="hover"
       onClick={onClick}
-      className={`relative group overflow-hidden rounded-2xl bg-card border border-border/50 cursor-pointer ${project.className}`}
+      className={`relative group overflow-hidden rounded-2xl bg-card border border-border/50 cursor-pointer ${layoutClassName ?? project.className}`}
     >
       {/* Background Image */}
-      <motion.img
-        layoutId={`project-image-${project.id}`}
-        variants={{
-          hover: { scale: (project.imageConfig?.scale || 1) * 1.05 }
-        }}
-        initial={{ scale: project.imageConfig?.scale || 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        src={project.image}
-        alt={project.title}
-        referrerPolicy="no-referrer"
-        className={`absolute inset-0 w-full h-full ${project.imageConfig?.fit === 'contain' ? 'object-contain' : 'object-cover'
-          }`}
-        style={{ objectPosition: project.imageConfig?.position || 'center' }}
-      />
+      <picture className="absolute inset-0 block h-full w-full">
+        <source srcSet={imageVariant(project.image, 'avif')} type="image/avif" />
+        <source srcSet={imageVariant(project.image, 'webp')} type="image/webp" />
+        <motion.img
+          layoutId={`project-image-${project.id}`}
+          variants={{
+            hover: { scale: (project.imageConfig?.scale || 1) * 1.05 }
+          }}
+          initial={{ scale: project.imageConfig?.scale || 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          src={project.image}
+          alt={project.title}
+          loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
+          className={`h-full w-full ${project.imageConfig?.fit === 'contain' ? 'object-contain' : 'object-cover'
+            }`}
+          style={{ objectPosition: project.imageConfig?.position || 'center' }}
+        />
+      </picture>
 
       {/* Overlay */}
       <div
@@ -130,7 +179,7 @@ const ProjectCard: React.FC<{ project: any; onClick: () => void }> = ({ project,
 
       {/* Content */}
       <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">
-        <div className="translate-y-12 group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1]">
+        <div className="translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] md:translate-y-12 md:group-hover:translate-y-0">
           <span className="inline-flex px-2 py-1 rounded-md bg-black/40 backdrop-blur-md text-[10px] font-mono font-medium text-white/90 uppercase tracking-widest border border-white/5 mb-3">
             {project.category}
           </span>

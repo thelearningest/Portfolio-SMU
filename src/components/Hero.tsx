@@ -1,19 +1,55 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 export default function Hero() {
+  const [shouldPlayVideo, setShouldPlayVideo] = useState(false);
+
+  useEffect(() => {
+    const desktopQuery = window.matchMedia('(min-width: 768px)');
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePlaybackPreference = () => {
+      setShouldPlayVideo(desktopQuery.matches && !reducedMotionQuery.matches);
+    };
+
+    updatePlaybackPreference();
+    desktopQuery.addEventListener('change', updatePlaybackPreference);
+    reducedMotionQuery.addEventListener('change', updatePlaybackPreference);
+
+    return () => {
+      desktopQuery.removeEventListener('change', updatePlaybackPreference);
+      reducedMotionQuery.removeEventListener('change', updatePlaybackPreference);
+    };
+  }, []);
+
   return (
     <section className="relative min-h-screen flex flex-col md:flex-row overflow-hidden pt-16 md:pt-0">
       {/* Background Video Container */}
       <div className="absolute inset-0 z-0 bg-background">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover opacity-100"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
+        <picture>
+          <source srcSet="/hero-poster.avif" type="image/avif" />
+          <img
+            src="/hero-poster.webp"
+            alt=""
+            aria-hidden="true"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </picture>
+        {shouldPlayVideo ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/hero-poster.webp"
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            <source src="/hero-video-optimized.webm" type="video/webm" />
+            <source src="/hero-video-optimized.mp4" type="video/mp4" />
+          </video>
+        ) : null}
         {/* Overlay for better text readability */}
         <div className="absolute inset-0 bg-background/50 dark:bg-background/60" />
         <div className="absolute inset-0 bg-linear-to-b from-background/10 via-transparent to-background/90" />

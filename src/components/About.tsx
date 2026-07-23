@@ -31,6 +31,9 @@ type Phase = {
   projects?: ProjectCard[];
 };
 
+const imageVariant = (src: string, format: 'avif' | 'webp') =>
+  src.replace(/\.[^/.]+$/, `.${format}`);
+
 const phases: Phase[] = [
   {
     id: '01',
@@ -356,11 +359,17 @@ const EvidenceTileCard = ({ tile, theme }: { tile: EvidenceTile; theme: PhaseThe
       {/* Image area — takes up most of the card */}
       {hasImage ? (
         <div className="relative min-h-36 w-full flex-1 md:min-h-52">
-          <img
-            src={tile.image}
-            alt={tile.title}
-            className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-          />
+          <picture className="absolute inset-0 block h-full w-full">
+            <source srcSet={imageVariant(tile.image!, 'avif')} type="image/avif" />
+            <source srcSet={imageVariant(tile.image!, 'webp')} type="image/webp" />
+            <img
+              src={tile.image}
+              alt={tile.title}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            />
+          </picture>
           {/* Subtle top-left label on top of image */}
           <div className="absolute left-3 top-3 z-10 md:left-4">
             <span className="rounded-full bg-black/40 backdrop-blur-sm px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-white/70">
@@ -548,11 +557,17 @@ const ProjectCardItem = ({ project, isFeatured }: { project: ProjectCard; isFeat
       {/* Image Layer */}
       {hasImage ? (
         <div className="relative w-full flex-1 min-h-[180px] md:min-h-[220px]">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-          />
+          <picture className="absolute inset-0 block h-full w-full">
+            <source srcSet={imageVariant(project.image!, 'avif')} type="image/avif" />
+            <source srcSet={imageVariant(project.image!, 'webp')} type="image/webp" />
+            <img
+              src={project.image}
+              alt={project.title}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            />
+          </picture>
           {project.tag ? (
             <div className="absolute top-4 left-5 z-10">
               <span className="rounded-full border border-white/10 bg-black/40 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-white/70 backdrop-blur-md">
@@ -596,15 +611,21 @@ const PhaseThreeCard = ({ context, manifesto }: { context: string; manifesto: st
       className="mt-10 overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#0d0e0d] text-white shadow-[0_28px_68px_rgba(20,18,13,0.17)] md:mt-14 md:rounded-[1.75rem]"
     >
       <figure className="relative aspect-[4/3] overflow-hidden bg-[#151918] sm:aspect-[3/2]">
-        <motion.img
-          src="assets/phase3/engineering-event.jpg"
-          alt="Triet presenting at an engineering event beside an Engineering Capability banner"
-          initial={prefersReducedMotion ? false : { scale: 1.03 }}
-          whileInView={prefersReducedMotion ? undefined : { scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="h-full w-full object-cover object-[44%_center] sm:object-center"
-        />
+        <picture className="block h-full w-full">
+          <source srcSet="assets/phase3/engineering-event.avif" type="image/avif" />
+          <source srcSet="assets/phase3/engineering-event.webp" type="image/webp" />
+          <motion.img
+            src="assets/phase3/engineering-event.jpg"
+            alt="Triet presenting at an engineering event beside an Engineering Capability banner"
+            loading="lazy"
+            decoding="async"
+            initial={prefersReducedMotion ? false : { scale: 1.03 }}
+            whileInView={prefersReducedMotion ? undefined : { scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="h-full w-full object-cover object-[44%_center] sm:object-center"
+          />
+        </picture>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[22%] bg-gradient-to-t from-black/25 to-transparent" />
       </figure>
 

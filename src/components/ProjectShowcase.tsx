@@ -10,6 +10,9 @@ interface ProjectShowcaseProps {
   onClose: () => void;
 }
 
+const imageVariant = (src: string, format: 'avif' | 'webp') =>
+  src.replace(/\.[^/.]+$/, `.${format}`);
+
 const renderRichText = (text: string) => {
   if (!text) return null;
   
@@ -80,18 +83,23 @@ export default function ProjectShowcase({ project, onClose }: ProjectShowcasePro
 
         {/* Hero Section */}
         <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden shrink-0">
-          <motion.img 
-            layoutId={`project-image-${project.id}`}
-            src={project.image}
-            alt={project.title}
-            className={`absolute inset-0 w-full h-full ${
-              project.imageConfig?.fit === 'contain' ? 'object-contain' : 'object-cover'
-            }`}
-            style={{ 
-              objectPosition: project.imageConfig?.position || 'center',
-              transform: `scale(${project.imageConfig?.scale || 1})`
-            }}
-          />
+          <picture className="absolute inset-0 block h-full w-full">
+            <source srcSet={imageVariant(project.image, 'avif')} type="image/avif" />
+            <source srcSet={imageVariant(project.image, 'webp')} type="image/webp" />
+            <motion.img
+              layoutId={`project-image-${project.id}`}
+              src={project.image}
+              alt={project.title}
+              decoding="async"
+              className={`h-full w-full ${
+                project.imageConfig?.fit === 'contain' ? 'object-contain' : 'object-cover'
+              }`}
+              style={{
+                objectPosition: project.imageConfig?.position || 'center',
+                transform: `scale(${project.imageConfig?.scale || 1})`
+              }}
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-100" />
           
           <div className="absolute bottom-0 left-0 w-full p-8 md:p-16 flex flex-col justify-end">
@@ -173,11 +181,17 @@ export default function ProjectShowcase({ project, onClose }: ProjectShowcasePro
                         className="aspect-video bg-secondary/50 rounded-xl overflow-hidden relative group border border-border/50 cursor-zoom-in"
                         onClick={() => setSelectedImage(img)}
                       >
-                        <img 
-                          src={img} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                          alt={`${project.title} progress ${idx + 1}`} 
-                        />
+                        <picture className="absolute inset-0 block h-full w-full">
+                          <source srcSet={imageVariant(img, 'avif')} type="image/avif" />
+                          <source srcSet={imageVariant(img, 'webp')} type="image/webp" />
+                          <img
+                            src={img}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            alt={`${project.title} progress ${idx + 1}`}
+                          />
+                        </picture>
                       </div>
                     ))}
                   </div>
@@ -207,16 +221,21 @@ export default function ProjectShowcase({ project, onClose }: ProjectShowcasePro
             >
               <X size={24} />
             </button>
-            <motion.img
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              src={selectedImage}
-              alt="Full view"
-              className="max-w-[95vw] max-h-[90vh] object-contain rounded-2xl shadow-2xl cursor-default"
-              onClick={(e) => e.stopPropagation()}
-            />
+            <picture className="flex max-h-[90vh] max-w-[95vw] items-center justify-center">
+              <source srcSet={imageVariant(selectedImage, 'avif')} type="image/avif" />
+              <source srcSet={imageVariant(selectedImage, 'webp')} type="image/webp" />
+              <motion.img
+                initial={{ scale: 0.85, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.85, opacity: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                src={selectedImage}
+                alt="Full view"
+                decoding="async"
+                className="max-w-[95vw] max-h-[90vh] object-contain rounded-2xl shadow-2xl cursor-default"
+                onClick={(e) => e.stopPropagation()}
+              />
+            </picture>
           </motion.div>
         )}
       </AnimatePresence>,
