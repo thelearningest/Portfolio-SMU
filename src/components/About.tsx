@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Spline from '@splinetool/react-spline';
-import { motion, useAnimationFrame, useScroll, useTransform, useInView } from 'motion/react';
+import { motion, useAnimationFrame, useScroll, useTransform, useInView, useReducedMotion } from 'motion/react';
 import { GitHubCalendar } from 'react-github-calendar';
 
 type EvidenceTile = {
@@ -30,7 +29,6 @@ type Phase = {
   evidence?: EvidenceTile[];
   projectsTitle?: string;
   projects?: ProjectCard[];
-  hasSpline?: boolean;
 };
 
 const phases: Phase[] = [
@@ -87,10 +85,9 @@ const phases: Phase[] = [
     kicker: 'PHASE /03',
     theme: 'light',
     opening: [
-      'Now I am\ncombining both.',
-      'I make stuff that helps people learn better—tools that make difficult ideas clearer, guidance more personal, and learning more enjoyable.',
+      'Now I’m combining both.',
+      'I make stuff that helps people learn better.',
     ],
-    hasSpline: true,
     closing: '',
   },
 ];
@@ -100,8 +97,6 @@ const widthClassMap: Record<NonNullable<EvidenceTile['span']>, string> = {
   md: 'w-[260px] md:w-[420px]',
   lg: 'w-[300px] md:w-[500px]',
 };
-
-const SPLINE_SCENE_URL = 'https://prod.spline.design/qB9mWdZXwu51oQKR/scene.splinecode';
 
 export default function About() {
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -233,7 +228,7 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
         }`}
     >
       <div className={`absolute inset-0 ${isLight ? 'bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.85),transparent_60%)]' : 'bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_55%)]'}`} />
-      <div className={`relative min-w-0 px-4 py-6 sm:px-5 md:px-10 md:py-10 ${phase.hasSpline ? 'pb-5 md:pb-8' : 'pb-6 md:pb-10'}`}>
+      <div className="relative min-w-0 px-4 py-6 pb-6 sm:px-5 md:px-10 md:py-10 md:pb-10">
         <div className="flex items-start justify-between gap-6">
           <span
             className={`rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em] ${isLight
@@ -249,19 +244,21 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
           />
         </div>
 
-        <div className="mt-10 max-w-5xl md:mt-14">
-          <h3
-            className={`max-w-4xl font-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.01em] md:text-5xl ${isAccent ? 'text-lime-400' : isLight ? 'text-black' : 'text-white'
-              }`}
-          >
-            {phase.opening[0].split('\n').map((line, i) => (
-              <React.Fragment key={i}>
-                {line}
-                {i !== phase.opening[0].split('\n').length - 1 && <br />}
-              </React.Fragment>
-            ))}
-          </h3>
-        </div>
+        {phase.id !== '03' ? (
+          <div className="mt-10 max-w-5xl md:mt-14">
+            <h3
+              className={`max-w-4xl font-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.01em] md:text-5xl ${isAccent ? 'text-lime-400' : isLight ? 'text-black' : 'text-white'
+                }`}
+            >
+              {phase.opening[0].split('\n').map((line, i) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i !== phase.opening[0].split('\n').length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </h3>
+          </div>
+        ) : null}
 
         {phase.evidence?.length || phase.projects?.length ? (
           <div className="mt-9 md:mt-12">
@@ -282,39 +279,13 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
           </div>
         ) : null}
 
-        {phase.hasSpline ? <SplinePanel /> : null}
-
         {phase.id === '02' ? <GitHubGraph /> : null}
 
-        <div className={`mt-10 border-t ${isLight ? 'border-black/10' : 'border-white/10'} pt-5 md:mt-12 md:pt-6`}>
-          {phase.opening[1] ? (
-            phase.id === '03' ? (
-              <div className="mt-6 mb-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2, duration: 0.8 }}
-                  className="relative overflow-hidden rounded-2xl bg-black px-5 py-8 md:px-10 md:py-12"
-                >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(163,230,53,0.15),transparent_50%)]" />
-                  <div className="relative z-10 max-w-4xl">
-                    <span className="inline-block rounded-full bg-lime-400/10 border border-lime-400/20 px-3 py-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-lime-400 mb-5">
-                      What I&apos;m Building Toward
-                    </span>
-                    <h4 className="font-display text-[1.95rem] sm:text-4xl lg:text-[3.25rem] font-medium leading-[1.1] tracking-tight text-white">
-                      I make stuff that helps people <span className="text-lime-400 italic">learn better.</span>
-                    </h4>
-                    <p className="mt-5 max-w-3xl text-[15px] leading-7 text-white/65 md:text-lg">
-                      Tools that make difficult ideas clearer, guidance more personal, and learning more enjoyable.
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* Cinematic Campus Parallax Reveal */}
-                <CampusParallax />
-              </div>
-            ) : (
+        {phase.id === '03' ? (
+          <PhaseThreeCard context={phase.opening[0]} manifesto={phase.opening[1]} />
+        ) : (
+          <div className={`mt-10 border-t ${isLight ? 'border-black/10' : 'border-white/10'} pt-5 md:mt-12 md:pt-6`}>
+            {phase.opening[1] ? (
               <p
                 className={`max-w-3xl text-[15px] leading-7 md:text-xl ${isLight ? 'text-black/75' : 'text-lime-400/80'
                   }`}
@@ -326,14 +297,14 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
                   </React.Fragment>
                 ))}
               </p>
-            )
-          ) : null}
-          {phase.closing ? (
-            <p className={`${phase.opening[1] ? (phase.id === '03' ? '' : 'mt-3') : ''} max-w-3xl text-[15px] md:text-[1.05rem] ${isLight ? 'text-black/65' : 'text-white/62'}`}>
-              {phase.closing}
-            </p>
-          ) : null}
-        </div>
+            ) : null}
+            {phase.closing ? (
+              <p className={`${phase.opening[1] ? 'mt-3' : ''} max-w-3xl text-[15px] md:text-[1.05rem] ${isLight ? 'text-black/65' : 'text-white/62'}`}>
+                {phase.closing}
+              </p>
+            ) : null}
+          </div>
+        )}
       </div>
     </motion.article>
   );
@@ -612,50 +583,39 @@ const ProjectCardItem = ({ project, isFeatured }: { project: ProjectCard; isFeat
   );
 };
 
-const SplinePanel = () => {
-  return (
-    <div className="mt-12 overflow-hidden rounded-xl border border-black/10 bg-[#fbf9f6] shadow-sm">
-      <div className="h-[360px] w-full md:h-[500px]">
-        <Spline scene={SPLINE_SCENE_URL} className="h-full w-full" />
-      </div>
-    </div>
-  );
-};
-
-const CampusParallax = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1.08, 1]);
-  const imgOpacity = useTransform(scrollYProgress, [0, 0.25], [0, 1]);
+const PhaseThreeCard = ({ context, manifesto }: { context: string; manifesto: string }) => {
+  const prefersReducedMotion = useReducedMotion();
+  const manifestoLead = manifesto.replace('learn better.', '');
 
   return (
     <motion.div
-      ref={containerRef}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ delay: 0.35, duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative mt-5 overflow-hidden rounded-2xl"
-      style={{ aspectRatio: '21 / 9' }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className="mt-10 overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#0d0e0d] text-white shadow-[0_28px_68px_rgba(20,18,13,0.17)] md:mt-14 md:rounded-[1.75rem]"
     >
-      {/* Parallax image layer */}
-      <motion.img
-        src="assets/phase3/smu-connexion.jpg"
-        alt="SMU Connexion campus"
-        style={{ scale, opacity: imgOpacity }}
-        className="absolute inset-0 h-full w-full object-cover object-center"
-      />
+      <figure className="relative aspect-[4/3] overflow-hidden bg-[#151918] sm:aspect-[3/2]">
+        <motion.img
+          src="assets/phase3/engineering-event.jpg"
+          alt="Triet presenting at an engineering event beside an Engineering Capability banner"
+          initial={prefersReducedMotion ? false : { scale: 1.03 }}
+          whileInView={prefersReducedMotion ? undefined : { scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          className="h-full w-full object-cover object-[44%_center] sm:object-center"
+        />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[22%] bg-gradient-to-t from-black/25 to-transparent" />
+      </figure>
 
-      {/* Cinematic vignette overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.55)_100%)]" />
-
-      {/* Bottom gradient for text anchoring */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
-
+      <div className="px-5 pb-8 pt-7 sm:px-8 sm:pb-10 sm:pt-8 md:px-12 md:pb-12 md:pt-10">
+        <p className="font-display text-base font-medium leading-tight tracking-[-0.02em] text-white/60 sm:text-xl">
+          {context}
+        </p>
+        <h3 className="mt-5 max-w-4xl font-display text-[2rem] font-medium leading-[1.04] tracking-[-0.04em] text-white [text-wrap:balance] sm:mt-7 sm:text-[2.75rem] lg:text-[3.5rem]">
+          {manifestoLead}<span className="text-lime-400">learn better.</span>
+        </h3>
+      </div>
     </motion.div>
   );
 };
@@ -721,18 +681,18 @@ const GitHubGraph = () => {
           Build Cadence
         </p>
         <a
-          href="https://github.com/trietdeptrai"
+          href="https://github.com/thelearningest"
           target="_blank"
           rel="noopener noreferrer"
           className="font-mono text-[11px] uppercase tracking-[0.18em] text-lime-400/60 hover:text-lime-400 transition-colors duration-300"
         >
-          @trietdeptrai ↗
+          @thelearningest ↗
         </a>
       </div>
 
       <div className="mt-4 overflow-x-auto rounded-lg border border-white/[0.07] bg-white/[0.02] p-4 md:p-6">
         <GitHubCalendar
-          username="trietdeptrai"
+          username="thelearningest"
           colorScheme="dark"
           theme={githubTheme}
           blockSize={13}
