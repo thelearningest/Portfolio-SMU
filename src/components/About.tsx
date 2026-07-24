@@ -147,8 +147,8 @@ export default function About() {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="mt-4 max-w-[18rem] text-[0.95rem] leading-6 text-muted-foreground md:mt-5 md:max-w-[15rem] md:text-sm"
           >
-            An <span className="italic text-foreground">educator, storyteller & builder.</span> This is
-            how I learned to teach at scale, build with AI, and combine both.
+            I’m on a path to make great, personalized education available to millions of students—and
+            to take a real shot at Bloom’s 2 Sigma Problem. Here’s my story.
           </motion.p>
 
           <nav className="mt-8 -mx-1 flex gap-2 overflow-x-auto px-1 pb-2 md:mx-0 md:block md:space-y-5 md:overflow-visible md:border-l md:border-border/80 md:px-0 md:pb-0 md:pl-4" aria-label="About phases">
