@@ -95,10 +95,11 @@ export default function Hero() {
         className="flex-1 relative z-10 flex min-h-[36vh] flex-col justify-start items-start px-6 pb-12 pt-10 text-left md:min-h-0 md:justify-center md:p-16 lg:p-24 transition-colors hover:bg-background/10"
       >
         <h1 className="mb-4 font-display text-[3.1rem] font-bold leading-[0.95] tracking-tighter md:mb-6 md:text-6xl lg:text-7xl">
+          AI Product <br />
           <span className="text-primary/70">Builder_</span>
         </h1>
         <p className="max-w-[18rem] text-[11px] leading-5 text-muted-foreground font-mono md:max-w-md md:text-sm">
-          &gt; I make stuff that helps people learn better—using AI, product thinking, and code.
+          &gt; I explore learning problems, shape AI product ideas, and build prototypes through hackathons and independent projects.
         </p>
       </motion.div>
     </section>
