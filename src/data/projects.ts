@@ -80,7 +80,7 @@ export const projects: Project[] = [
   },
   {
     id: 8,
-    title: 'Litmatch',
+    title: 'Vanver',
     category: 'Hackathon Winner',
     type: 'Coding Project',
     description: 'A gamified Vietnamese literature app that helps students understand literary characters through swiping, source-grounded chat, and challenges. Third-prize winner at Vietnam’s first Codex Community Hackathon.',
