@@ -168,52 +168,54 @@ export default function About() {
           </motion.div>
         </div>
 
-        <nav className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-y border-border/80 py-4 md:mt-14 md:gap-x-10" aria-label="About phases">
-          {phases.map((phase) => {
-            const isActive = phase.id === activePhase;
+        <div className="mt-10 grid min-w-0 gap-6 md:mt-14 md:grid-cols-[200px_minmax(0,1fr)] md:gap-8 lg:gap-12">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 border-y border-border/80 py-4 md:sticky md:top-28 md:h-fit md:flex-col md:flex-nowrap md:gap-5 md:self-start md:border-y-0 md:border-l md:py-0 md:pl-4" aria-label="About phases">
+            {phases.map((phase) => {
+              const isActive = phase.id === activePhase;
 
-            return (
-              <button
-                key={phase.id}
-                type="button"
-                aria-current={isActive ? 'location' : undefined}
-                onClick={() =>
-                  sectionRefs.current[phase.id]?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                  })
-                }
-                className="group flex min-h-11 items-center gap-3 py-2 text-left"
-              >
-                <span
-                  className={`h-2.5 w-2.5 shrink-0 rounded-full border transition-colors duration-300 ${isActive ? 'border-lime-400 bg-lime-400' : 'border-border bg-transparent group-hover:border-foreground/50'
-                    }`}
-                />
-                <div className="flex items-baseline gap-2">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">{phase.id}</p>
-                  <p
-                    className={`font-display text-[15px] leading-tight transition-colors duration-300 md:text-base ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
+              return (
+                <button
+                  key={phase.id}
+                  type="button"
+                  aria-current={isActive ? 'location' : undefined}
+                  onClick={() =>
+                    sectionRefs.current[phase.id]?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    })
+                  }
+                  className="group flex min-h-11 items-center gap-3 py-2 text-left"
+                >
+                  <span
+                    className={`h-2.5 w-2.5 shrink-0 rounded-full border transition-colors duration-300 ${isActive ? 'border-lime-400 bg-lime-400' : 'border-border bg-transparent group-hover:border-foreground/50'
                       }`}
-                  >
-                    {phase.navTitle}
-                  </p>
-                </div>
-              </button>
-            );
-          })}
-        </nav>
+                  />
+                  <div className="flex items-baseline gap-2 md:flex-col md:gap-1">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">{phase.id}</p>
+                    <p
+                      className={`font-display text-[15px] leading-tight transition-colors duration-300 md:text-base ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
+                        }`}
+                    >
+                      {phase.navTitle}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </nav>
 
-        <div className="mt-6 min-w-0 space-y-6 md:mt-10 md:space-y-10">
-          {phases.map((phase) => (
-            <React.Fragment key={phase.id}>
-              <PhasePanel
-                phase={phase}
-                setRef={(node) => {
-                  sectionRefs.current[phase.id] = node;
-                }}
-              />
-            </React.Fragment>
-          ))}
+          <div className="min-w-0 space-y-6 md:space-y-10">
+            {phases.map((phase) => (
+              <React.Fragment key={phase.id}>
+                <PhasePanel
+                  phase={phase}
+                  setRef={(node) => {
+                    sectionRefs.current[phase.id] = node;
+                  }}
+                />
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
     </section>
