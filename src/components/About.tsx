@@ -51,7 +51,7 @@ const phases: Phase[] = [
       { title: 'TEDx Stage 02', meta: 'I talked about the connection between authenticity and learning science, and how being authentic can also make you a better learner', span: 'sm', image: 'assets/phase1/TEDx2.jpg' },
       { title: 'U.S. Embassy Workshops: Hero Journey', meta: 'I talked about the concept of Hero Journey and how it can be used to understand and overcome challenges in our lives', span: 'md', image: 'assets/phase1/US.jpg' },
       { title: 'U.S. Embassy Workshops: Lessons from Benjamin Franklin', meta: 'I talked about three topics: Benjamin Franklin\'s 13 virtues, how he learned, and how he created a great network', span: 'sm', image: 'assets/phase1/Benjamin.jpg' },
-      { title: 'BUV Learning and Relearning award 2024', meta: 'I was awarđe the Learning and Relearning award for my contribution to the academic culture at BUV', span: 'sm', image: 'assets/phase1/Award.jpg' },
+      { title: 'BUV Learning and Relearning award 2024', meta: 'I was awarded the Learning and Relearning award for my contribution to the academic culture at BUV', span: 'sm', image: 'assets/phase1/Award.jpg' },
     ],
     closing: 'I could not personalize learning.',
   },
@@ -136,19 +136,30 @@ export default function About() {
   return (
     <section id="about" className="relative scroll-mt-20 bg-background py-18 md:py-32">
       <div className="mx-auto max-w-7xl min-w-0 px-4 sm:px-6">
-        <div className="grid min-w-0 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] md:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,680px)] lg:gap-16">
+        <div className="grid min-w-0 gap-8 md:grid-cols-[240px_minmax(0,1fr)] md:gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-12">
           <header className="min-w-0">
             <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-muted-foreground">My Story</p>
             <h2 className="mt-3 font-display text-[2rem] font-semibold leading-none text-foreground md:mt-4 lg:text-4xl">
               <TypewriterHook text="Hello, I'm Triet." />
             </h2>
+            <div className="mt-8 h-44 w-44 overflow-hidden rounded-full border border-border/80 md:mt-10 md:h-48 md:w-48 lg:h-56 lg:w-56">
+              <img
+                src="/assets/triet-portrait.jpg"
+                alt="Triet smiling in a black blazer"
+                width={2048}
+                height={1365}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full origin-[48%_35%] scale-[1.7] object-cover object-[48%_center]"
+              />
+            </div>
           </header>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="min-w-0 max-w-[680px] space-y-5 text-base leading-7 text-muted-foreground lg:text-[1.0625rem]"
+            className="min-w-0 space-y-5 text-justify text-base leading-7 text-muted-foreground lg:text-[1.0625rem]"
           >
             <p>
               I started in education and content creation, then accidentally got into AI because I
@@ -168,8 +179,8 @@ export default function About() {
           </motion.div>
         </div>
 
-        <div className="mt-10 grid min-w-0 gap-6 md:mt-14 md:grid-cols-[200px_minmax(0,1fr)] md:gap-8 lg:gap-12">
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 border-y border-border/80 py-4 md:sticky md:top-28 md:h-fit md:flex-col md:flex-nowrap md:gap-5 md:self-start md:border-y-0 md:border-l md:py-0 md:pl-4" aria-label="About phases">
+        <div className="mt-10 grid min-w-0 gap-6 md:mt-14 md:grid-cols-[240px_minmax(0,1fr)] md:gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-12">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 border-y border-border/80 py-4 md:sticky md:top-28 md:mt-8 md:h-fit md:flex-col md:flex-nowrap md:gap-5 md:self-start md:border-y-0 md:border-l md:py-0 md:pl-4" aria-label="About phases">
             {phases.map((phase) => {
               const isActive = phase.id === activePhase;
 
@@ -230,7 +241,7 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.18, 0.85, 1], [0.45, 1, 1, 0.72]);
-  const y = useTransform(scrollYProgress, [0, 1], [38, -12]);
+  const y = useTransform(scrollYProgress, [0, 1], [12, -12]);
 
   useEffect(() => {
     setRef(ref.current);
@@ -244,7 +255,7 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
       id={phase.id}
       ref={ref}
       style={{ opacity, y }}
-      className={`relative min-w-0 scroll-mt-24 overflow-hidden border ${isLight
+      className={`relative min-w-0 scroll-mt-24 overflow-hidden border md:scroll-mt-20 ${isLight
         ? 'border-black/10 bg-[#f5f1ea] text-black'
         : 'border-white/10 bg-[#101010] text-white'
         }`}
