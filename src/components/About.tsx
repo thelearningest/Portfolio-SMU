@@ -124,7 +124,8 @@ export default function About() {
       },
       {
         rootMargin: '-18% 0px -42% 0px',
-        threshold: [0.2, 0.35, 0.55, 0.75],
+        // Tall chapters may never expose 20% of their area inside the reading band.
+        threshold: 0,
       },
     );
 
@@ -133,60 +134,76 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="relative bg-background py-18 md:py-32">
-      <div className="mx-auto grid max-w-7xl min-w-0 gap-10 px-4 sm:px-6 md:grid-cols-[240px_minmax(0,1fr)] md:gap-16">
-        <aside className="min-w-0 h-fit md:sticky md:top-28">
-          <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-muted-foreground">My Story</p>
-          <h2 className="mt-3 font-display text-[2rem] font-semibold leading-none text-foreground md:mt-4 md:text-4xl">
-            <TypewriterHook text="Hello, I'm Triet." />
-          </h2>
-          <motion.p
+    <section id="about" className="relative scroll-mt-20 bg-background py-18 md:py-32">
+      <div className="mx-auto max-w-7xl min-w-0 px-4 sm:px-6">
+        <div className="grid min-w-0 gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] md:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,680px)] lg:gap-16">
+          <header className="min-w-0">
+            <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-muted-foreground">My Story</p>
+            <h2 className="mt-3 font-display text-[2rem] font-semibold leading-none text-foreground md:mt-4 lg:text-4xl">
+              <TypewriterHook text="Hello, I'm Triet." />
+            </h2>
+          </header>
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="mt-4 max-w-[18rem] text-[0.95rem] leading-6 text-muted-foreground md:mt-5 md:max-w-[15rem] md:text-sm"
+            className="min-w-0 max-w-[680px] space-y-5 text-base leading-7 text-muted-foreground lg:text-[1.0625rem]"
           >
-            I’m on a path to make great, personalized education available to millions of students—and
-            to take a real shot at Bloom’s 2 Sigma Problem. Here’s my story.
-          </motion.p>
+            <p>
+              I started in education and content creation, then accidentally got into AI because I
+              thought “deep learning” was a learning technique. It wasn’t what I expected, but it got
+              me curious.
+            </p>
+            <p>
+              I began to see another way to make an impact: building products that people could use
+              to solve problems themselves. Over the past nearly two years, I’ve worked at an AI
+              startup, learned programming from scratch, and built prototypes that won hackathons.
+              Now, I’m studying AI in the Master of IT in Business programme at SMU.
+            </p>
+            <p>
+              I want to bring my experience explaining ideas and building prototypes into a product
+              role, helping a team decide what’s worth building and turn it into something useful.
+            </p>
+          </motion.div>
+        </div>
 
-          <nav className="mt-8 -mx-1 flex gap-2 overflow-x-auto px-1 pb-2 md:mx-0 md:block md:space-y-5 md:overflow-visible md:border-l md:border-border/80 md:px-0 md:pb-0 md:pl-4" aria-label="About phases">
-            {phases.map((phase) => {
-              const isActive = phase.id === activePhase;
+        <nav className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-y border-border/80 py-4 md:mt-14 md:gap-x-10" aria-label="About phases">
+          {phases.map((phase) => {
+            const isActive = phase.id === activePhase;
 
-              return (
-                <button
-                  key={phase.id}
-                  type="button"
-                  onClick={() =>
-                    sectionRefs.current[phase.id]?.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'start',
-                    })
-                  }
-                  className="group flex min-w-fit items-start gap-3 rounded-full border border-border/70 bg-background/70 px-3 py-2 text-left backdrop-blur-sm md:w-full md:rounded-none md:border-0 md:bg-transparent md:px-0 md:py-0 md:backdrop-blur-none"
-                >
-                  <span
-                    className={`mt-[6px] h-2.5 w-2.5 rounded-full border transition-colors duration-300 ${isActive ? 'border-lime-400 bg-lime-400' : 'border-border bg-transparent group-hover:border-foreground/50'
+            return (
+              <button
+                key={phase.id}
+                type="button"
+                aria-current={isActive ? 'location' : undefined}
+                onClick={() =>
+                  sectionRefs.current[phase.id]?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  })
+                }
+                className="group flex min-h-11 items-center gap-3 py-2 text-left"
+              >
+                <span
+                  className={`h-2.5 w-2.5 shrink-0 rounded-full border transition-colors duration-300 ${isActive ? 'border-lime-400 bg-lime-400' : 'border-border bg-transparent group-hover:border-foreground/50'
+                    }`}
+                />
+                <div className="flex items-baseline gap-2">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">{phase.id}</p>
+                  <p
+                    className={`font-display text-[15px] leading-tight transition-colors duration-300 md:text-base ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
                       }`}
-                  />
-                  <div>
-                    <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-muted-foreground">{phase.id}</p>
-                    <p
-                      className={`mt-1 font-display text-[15px] leading-tight transition-colors duration-300 md:text-base ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
-                        }`}
-                    >
-                      {phase.navTitle}
-                    </p>
-                  </div>
-                </button>
-              );
-            })}
-          </nav>
-        </aside>
+                  >
+                    {phase.navTitle}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
+        </nav>
 
-        <div className="min-w-0 space-y-6 md:space-y-10">
+        <div className="mt-6 min-w-0 space-y-6 md:mt-10 md:space-y-10">
           {phases.map((phase) => (
             <React.Fragment key={phase.id}>
               <PhasePanel
@@ -225,7 +242,7 @@ const PhasePanel = ({ phase, setRef }: { phase: Phase; setRef: (node: HTMLElemen
       id={phase.id}
       ref={ref}
       style={{ opacity, y }}
-      className={`relative min-w-0 overflow-hidden border ${isLight
+      className={`relative min-w-0 scroll-mt-24 overflow-hidden border ${isLight
         ? 'border-black/10 bg-[#f5f1ea] text-black'
         : 'border-white/10 bg-[#101010] text-white'
         }`}
