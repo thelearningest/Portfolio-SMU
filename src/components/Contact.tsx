@@ -21,6 +21,9 @@ export default function Contact() {
              transition={{ duration: 0.8 }}
              className="max-w-4xl"
           >
+            <h2 className="mb-5 flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.28em] text-muted-foreground md:mb-8 md:text-sm md:tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/60" /> Let's Connect
+            </h2>
             <h3 className="max-w-[20rem] font-display text-[2rem] font-semibold leading-[1.08] tracking-tight md:max-w-none md:text-5xl lg:text-6xl">
               I want to help build the next thing that makes learning better—either in a <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">product role</span> or as a <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">Founder&apos;s Associate</span> at an edtech company.
             </h3>
