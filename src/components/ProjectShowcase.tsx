@@ -176,23 +176,29 @@ export default function ProjectShowcase({ project, onClose }: ProjectShowcasePro
                   <h3 className="text-3xl font-display font-bold mb-6 text-foreground">Visuals & Process</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {project.gallery.map((img, idx) => (
-                      <div 
-                        key={idx} 
-                        className="aspect-video bg-secondary/50 rounded-xl overflow-hidden relative group border border-border/50 cursor-zoom-in"
-                        onClick={() => setSelectedImage(img)}
-                      >
-                        <picture className="absolute inset-0 block h-full w-full">
-                          <source srcSet={imageVariant(img, 'avif')} type="image/avif" />
-                          <source srcSet={imageVariant(img, 'webp')} type="image/webp" />
-                          <img
-                            src={img}
-                            loading="lazy"
-                            decoding="async"
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            alt={`${project.title} progress ${idx + 1}`}
-                          />
-                        </picture>
-                      </div>
+                      <figure key={img}>
+                        <div
+                          className="aspect-video bg-secondary/50 rounded-xl overflow-hidden relative group border border-border/50 cursor-zoom-in"
+                          onClick={() => setSelectedImage(img)}
+                        >
+                          <picture className="absolute inset-0 block h-full w-full">
+                            <source srcSet={imageVariant(img, 'avif')} type="image/avif" />
+                            <source srcSet={imageVariant(img, 'webp')} type="image/webp" />
+                            <img
+                              src={img}
+                              loading="lazy"
+                              decoding="async"
+                              className={`h-full w-full ${project.galleryImageFit === 'contain' ? 'object-contain' : 'object-cover transition-transform duration-500 group-hover:scale-105'}`}
+                              alt={project.galleryCaptions?.[idx] || `${project.title} progress ${idx + 1}`}
+                            />
+                          </picture>
+                        </div>
+                        {project.galleryCaptions?.[idx] && (
+                          <figcaption className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                            {project.galleryCaptions[idx]}
+                          </figcaption>
+                        )}
+                      </figure>
                     ))}
                   </div>
                 </div>

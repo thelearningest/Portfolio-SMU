@@ -5,8 +5,8 @@ import ProjectShowcase from './ProjectShowcase';
 
 import { projects } from '../data/projects';
 
-const featuredProjectIds = [8, 4, 3];
-const secondaryProjectIds = [1, 2, 6, 7, 5];
+const featuredProjectIds = [8, 9, 3];
+const secondaryProjectIds = [4, 1, 2, 6, 7, 5];
 
 const orderProjects = (ids: number[]) =>
   projects
@@ -21,7 +21,7 @@ const imageVariant = (src: string, format: 'avif' | 'webp') =>
 
 const featuredLayoutById: Record<number, string> = {
   8: 'md:col-span-2 md:row-span-2',
-  4: 'md:col-span-1 md:row-span-2',
+  9: 'md:col-span-1 md:row-span-2',
   3: 'md:col-span-3 md:row-span-1',
 };
 
@@ -186,7 +186,7 @@ const ProjectCard: React.FC<{ project: any; layoutClassName?: string; onClick: (
           <h4 className="font-display text-2xl md:text-3xl font-bold mb-2">
             {project.title}
           </h4>
-          <p className="text-white/80 text-sm md:text-base mb-4 line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
+          <p className="text-white/80 text-sm md:text-base mb-4 line-clamp-2 md:group-hover:line-clamp-none transition-all duration-500">
             {project.description}
           </p>
 
@@ -197,7 +197,7 @@ const ProjectCard: React.FC<{ project: any; layoutClassName?: string; onClick: (
             }}
             initial={{ opacity: 0, height: 0, marginTop: 0 }}
             transition={{ duration: 0.4 }}
-            className="overflow-hidden"
+            className="hidden overflow-hidden md:block"
           >
             <div className="pt-4 border-t border-white/20">
               <span className="text-xs font-bold uppercase tracking-wider text-white/60 block mb-1">Role & Process</span>
