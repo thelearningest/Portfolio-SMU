@@ -42,7 +42,7 @@ const phases: Phase[] = [
     theme: 'dark',
     opening: [
       'I learned how to\nteach at scale.',
-      'I reached millions. But I could not respond to\nconfusion or meet learners where they were.',
+      'Through my experience in education, I learned how to explain complex ideas in a way people can understand. I also learned how to create content that gets thousands, and sometimes millions, of views.',
     ],
     evidenceTitle: 'Visual Evidence',
     evidence: [
@@ -53,7 +53,7 @@ const phases: Phase[] = [
       { title: 'U.S. Embassy Workshops: Lessons from Benjamin Franklin', meta: 'I talked about three topics: Benjamin Franklin\'s 13 virtues, how he learned, and how he created a great network', span: 'sm', image: 'assets/phase1/Benjamin.jpg' },
       { title: 'BUV Learning and Relearning award 2024', meta: 'I was awarded the Learning and Relearning award for my contribution to the academic culture at BUV', span: 'sm', image: 'assets/phase1/Award.jpg' },
     ],
-    closing: 'I could not personalize learning.',
+    closing: '',
   },
   {
     id: '02',
@@ -62,7 +62,7 @@ const phases: Phase[] = [
     theme: 'accent',
     opening: [
       'I learned how to\nbuild with AI.',
-      'Personalization at scale is\nnot just a content problem.\nIt is a systems problem.',
+      'I learned the basics of programming and use AI coding tools to turn ideas into working prototypes. I\'ve built projects that use AI to organise patient records, give feedback on workout form, help students explore Vietnamese literature, and more. (See the Projects section for more details.)',
     ],
     evidenceTitle: 'Signals of the Shift (see the projects section for more detail)',
     evidence: [
@@ -80,7 +80,7 @@ const phases: Phase[] = [
       { title: 'Study with Triet', description: 'an aesthetic pomodoro website', tag: 'web app', image: 'assets/projects/StudyWithTriet.png' },
       { title: 'Xgboost-houseprice-predictor', description: 'Predicting house prices using XGBoost', tag: 'ML practice project', image: 'assets/projects/XGboost.png' },
     ],
-    closing: 'I could build working prototypes. But I could not build systems that scale.',
+    closing: '',
   },
   {
     id: '03',
@@ -89,7 +89,7 @@ const phases: Phase[] = [
     theme: 'light',
     opening: [
       'Now I’m combining both.',
-      'I make stuff that helps people learn better.',
+      'I want to turn complex ideas into products that are easy to understand and use.',
     ],
     closing: '',
   },
@@ -630,7 +630,11 @@ const ProjectCardItem = ({ project, isFeatured }: { project: ProjectCard; isFeat
 
 const PhaseThreeCard = ({ context, manifesto }: { context: string; manifesto: string }) => {
   const prefersReducedMotion = useReducedMotion();
-  const manifestoLead = manifesto.replace('learn better.', '');
+  const highlightedEnding = 'easy to understand and use.';
+  // Derive both parts from the copy so edits cannot append stale wording.
+  const highlightStart = manifesto.endsWith(highlightedEnding)
+    ? manifesto.length - highlightedEnding.length
+    : manifesto.length;
 
   return (
     <motion.div
@@ -664,7 +668,7 @@ const PhaseThreeCard = ({ context, manifesto }: { context: string; manifesto: st
           {context}
         </p>
         <h3 className="mt-5 max-w-4xl font-display text-[2rem] font-medium leading-[1.04] tracking-[-0.04em] text-white [text-wrap:balance] sm:mt-7 sm:text-[2.75rem] lg:text-[3.5rem]">
-          {manifestoLead}<span className="text-lime-400">learn better.</span>
+          {manifesto.slice(0, highlightStart)}<span className="text-lime-400">{manifesto.slice(highlightStart)}</span>
         </h3>
       </div>
     </motion.div>
