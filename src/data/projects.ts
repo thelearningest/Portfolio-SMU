@@ -100,7 +100,7 @@ export const projects: Project[] = [
     fullDescription: 'SafeFormAI is a webapp that utilize vision capability of Gemini to analyze user workout form and provide visual feedback, with detailed timestamp of where you did wrong, and specific steps to improve.',
     challenge: "I’ve noticed that many people prefer working out at home—maybe because they’re too busy to go to the gym, gym memberships are expensive, or simply because the gym music is terrible.\n\n Training at home is private and convenient, but the downside is that no one corrects your form.\n\n I once had to stop training for nearly a year and a half due to a back injury. There were many reasons for it, and one of them was consistently using improper form over a long period of time.\n\nYou’re afraid of training with bad form, but you don’t have the time or money to hire a personal trainer.\n\nThat pain point is why I built SafeFormAI.",
     role: 'Frontend Developer, Product Owner',
-    year: '2025',
+    year: '2026',
     techStack: ['Reactjs', 'typescript', 'FastAPI', 'Vercel', 'CloudfareR2', 'Gemini API'],
     liveUrl: 'https://www.facebook.com/reel/26177407271877746',
     image: '/assets/projects/SafeFormAI.png',
