@@ -167,8 +167,8 @@ export default function About() {
               me curious.
             </p>
             <p>
-              I began to see another way to make an impact: building products that people could use
-              to solve problems themselves. Over the past nearly two years, I’ve worked at an AI
+              I began to see another way to make an impact: building products that make people say,
+              “Wow, this saved me so much time and effort.” Over the past nearly two years, I’ve worked at an AI
               startup, learned programming from scratch, and built prototypes that won hackathons.
               Now, I’m studying AI in the Master of IT in Business programme at SMU.
             </p>
