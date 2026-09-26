@@ -29,11 +29,11 @@ export default function Projects() {
   const [activeProject, setActiveProject] = useState<any>(null);
 
   return (
-    <section id="projects" className="py-24 md:py-32 bg-secondary/30 relative">
+    <section id="projects" className="pt-24 pb-12 md:pt-32 md:pb-16 bg-secondary/30 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-16 md:mb-24">
           <h2 className="text-sm font-mono text-muted-foreground uppercase tracking-widest mb-4">Selected work</h2>
-          <h3 className="font-display text-4xl md:text-5xl font-bold">Things I’ve built for learning.</h3>
+          <h3 className="font-display text-4xl md:text-5xl font-bold">Things I’ve built and shared.</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-[300px] grid-flow-row-dense">
@@ -63,7 +63,7 @@ export default function Projects() {
       </div>
 
       {/* Craftsmanship Banner */}
-      <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-32 pb-8 md:pb-16">
+      <div className="max-w-7xl mx-auto px-6 mt-24 md:mt-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -168,14 +168,10 @@ const ProjectCard: React.FC<{ project: any; layoutClassName?: string; onClick: (
           }`}
       />
 
-      {/* Type Tag */}
-      {project.type && (
-        <div className="absolute top-4 right-4 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[0.16,1,0.3,1]">
-          <span className="px-3 py-1.5 text-[10px] font-mono font-bold rounded-full bg-lime-400 text-black border border-lime-400/50 uppercase tracking-[0.15em] shadow-[0_0_20px_rgba(163,230,53,0.3)]">
-            {project.type}
-          </span>
-        </div>
-      )}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      />
 
       {/* Content */}
       <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end text-white">

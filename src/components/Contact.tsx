@@ -9,11 +9,11 @@ const socialLinks = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative overflow-hidden bg-background py-18 md:py-32">
+    <section id="contact" className="relative overflow-hidden bg-background pt-12 pb-18 md:pt-16 md:pb-32">
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-4 sm:px-6">
-        
-        {/* Navigation & Headline */}
-        <div className="mb-12 flex flex-col items-start justify-between gap-8 md:mb-32 md:flex-row md:gap-8">
+
+        {/* Contact label */}
+        <div className="mb-8">
           <motion.div
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
@@ -21,27 +21,25 @@ export default function Contact() {
              transition={{ duration: 0.8 }}
              className="max-w-4xl"
           >
-            <h3 className="max-w-[20rem] font-display text-[2rem] font-semibold leading-[1.08] tracking-tight md:max-w-none md:text-5xl lg:text-6xl">
-              I want to help build the next thing that makes learning better—either in a <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">product role</span> or as a <span className="font-serif italic font-medium text-[#14532d] dark:text-lime-400">Founder&apos;s Associate</span> at an edtech company.
-            </h3>
+            <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-muted-foreground">
+              Contact
+            </p>
           </motion.div>
         </div>
 
         {/* Links List */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col border-t border-border"
-        >
-          {socialLinks.map((link) => (
-            <a 
+        <div className="-mx-3 flex flex-col border-t border-border md:-mx-6">
+          {socialLinks.map((link, index) => (
+            <motion.a
               key={link.name}
               href={link.url}
               target={link.name !== 'Gmail' ? '_blank' : undefined}
               rel={link.name !== 'Gmail' ? 'noopener noreferrer' : undefined}
-              className="group relative flex w-full items-center justify-between border-b border-border py-4 transition-colors duration-300 hover:border-lime-500/50 md:py-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 + index * 0.08 }}
+              className="group relative flex w-full items-center justify-between border-b border-border px-3 py-4 md:px-6 md:py-8"
             >
               <span className="font-display text-[2rem] font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-lime-600 md:text-5xl lg:text-6xl dark:group-hover:text-lime-400">
                 {link.name}
@@ -49,8 +47,19 @@ export default function Contact() {
               <div className="translate-x-0 opacity-70 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 md:-translate-x-4 md:opacity-0">
                 <ArrowUpRight className="h-6 w-6 text-lime-600 md:h-10 md:w-10 dark:text-lime-400" />
               </div>
-            </a>
+            </motion.a>
           ))}
+        </div>
+
+        {/* Footer meta */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-8 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground/70 md:mt-12"
+        >
+          Singapore
         </motion.div>
 
       </div>
